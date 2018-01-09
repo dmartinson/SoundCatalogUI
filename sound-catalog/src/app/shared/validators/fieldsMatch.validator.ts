@@ -5,5 +5,5 @@ export function fieldsMatchValidator(targetKey: string, toMatchKey: string): Val
     const target = group.controls[targetKey];
     const toMatch = group.controls[toMatchKey];
     return target.value === toMatch.value ? null : { 'mismatch': true };
-  }
+  };
 }

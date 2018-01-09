@@ -21,14 +21,9 @@ export class TokenInterceptor implements HttpInterceptor {
         'Content-Type': 'x-www-form-urlencoded'
       });
 
-      //request = request.clone({
-      //  setHeaders: {
-      //    Authorization: `Bearer ${authToken}`
-      //  }
-      //});
       request = request.clone({headers});
     }
-    
+
     return next.handle(request);
   }
 }

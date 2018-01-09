@@ -4,6 +4,7 @@ import { JwtHelper } from 'angular2-jwt';
 
 import { environment } from '../../../environments/environment';
 import { User } from '../models/user';
+import { ResetPassword } from '../models/resetPassword';
 import { AuthData } from '../models/authData';
 import { ErrorAuth } from '../models/errorAuth';
 import { ErrorAuthType } from '../models/errorAuthType';
@@ -20,19 +21,19 @@ export class AuthService {
       this.jwtHelper = new JwtHelper();
     }
 
-  register(user: User) :Promise<boolean>{
+  register(user: User): Promise<boolean> {
     return this.httpClient.post(environment.soundCatalogApiURL + '/account/register', user)
       .toPromise()
-      .then(res => { return true; } )
+      .then(res => true )
       .catch(this.handleError);
   }
 
   checkEmailNotTaken(email: string): Promise<boolean> {
-    let params = new HttpParams().set('email', email);
+    const params = new HttpParams().set('email', email);
     return this.httpClient.get<boolean>(environment.soundCatalogApiURL + '/account/isValidNewMail', { params: params })
       .toPromise()
       .then(res => {
-        return res
+        return res;
       })
       .catch(this.handleError);
   }
@@ -42,7 +43,7 @@ export class AuthService {
       .toPromise()
       .then(this.returnAndStoreToken)
       .catch(this.handleLoginError);
-  } 
+  }
 
   logout(): void {
     // clear token remove user from local storage to log user out
@@ -68,43 +69,42 @@ export class AuthService {
   }
 
   generateConfirmEmail(email: string) {
-    let params = new HttpParams().set('email', email);
+    const params = new HttpParams().set('email', email);
 
     return this.httpClient.get(environment.soundCatalogApiURL + '/account/generateconfirmemail', { params: params })
       .toPromise()
-      .then(res => { return true;})
+      .then(res => true);
   }
 
   verifyEmail(userId: string, code: string): Promise<boolean> {
     // Setup log namespace query parameter
-    let params = new HttpParams()
+    const params = new HttpParams()
       .set('userId', userId)
       .set('code', code);
 
     return this.httpClient.get(environment.soundCatalogApiURL + '/account/confirmemail', { params: params })
       .toPromise()
-      .then(res => { return true; })
-      .catch(res => { return Promise.reject('Link is invalid. Try again.'); })
+      .then(res => true)
+      .catch(res => Promise.reject('Link is invalid. Try again.'));
   }
 
   sendEmailPwdRecovery(email: string) {
-    let params = new HttpParams().set('email', email);
+    const params = new HttpParams().set('email', email);
 
     return this.httpClient.get(environment.soundCatalogApiURL + '/account/generatepwdrecoveryemail', { params: params })
       .toPromise()
-      .then(res => { return true; })
+      .then(res => true);
   }
 
   resetPassword(userId: string, code: string, password: string): Promise<boolean> {
-    // Setup log namespace query parameter
-    let params = new HttpParams()
-      .set('userId', userId)
-      .set('code', code)
-      .set('password', password);
+    const model = new ResetPassword();
+    model.code = code;
+    model.userId = userId;
+    model.password = password;
 
-    return this.httpClient.get(environment.soundCatalogApiURL + '/account/resetpassword', { params: params })
+    return this.httpClient.post(environment.soundCatalogApiURL + '/account/resetpassword', model)
       .toPromise()
-      .then(res => { return true; })
+      .then(res => true)
       .catch(this.handleError);
   }
 
@@ -114,7 +114,7 @@ export class AuthService {
       .then(res => {
         return true;
       })
-      .catch(this.handleError)
+      .catch(this.handleError);
   }
 
   private returnAndStoreToken(authData: AuthData): AuthData {
@@ -122,8 +122,7 @@ export class AuthService {
       // store username and jwt token in local storage to keep user logged in between page refreshes
       localStorage.setItem('token', JSON.stringify(authData));
       return authData;
-    }
-    else {
+    } else {
       return null;
     }
   }
@@ -132,7 +131,7 @@ export class AuthService {
     console.log('api status:' + error.status);
     console.log('api message:' + error.error);
 
-    let retValue = new ErrorAuth();
+    const retValue = new ErrorAuth();
     retValue.Status = error.status;
 
     switch (error.status) {
@@ -145,7 +144,7 @@ export class AuthService {
         retValue.Message = 'Email should be confirmed';
         break;
       default:
-        retValue.Type = ErrorAuthType.UnhandledException
+        retValue.Type = ErrorAuthType.UnhandledException;
         retValue.Message = 'Unhandled exception';
     }
 
@@ -158,8 +157,7 @@ export class AuthService {
 
     if (error.status >= 500) {
       return Promise.reject('Unhandled exception');
-    }
-    else {
+    } else {
       return Promise.reject(error.error);
     }
   }
