@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
+
 
 
 //AppModules
@@ -20,8 +20,7 @@ import { ResetPasswordComponent } from './resetpassword/resetpassword.component'
 import { ResetPasswordConfirmedComponent } from './resetpassword-confirmed/resetpassword-confirmed.component';
 
 @NgModule({
-  imports: [CommonModule, BrowserModule, SharedModule, AuthRoutingModule, ReactiveFormsModule],
-  exports: [LoginComponent, RegisterComponent, VerifyEmailConfirmedComponent],
-  declarations: [LoginComponent, RegisterComponent, VerifyEmailConfirmedComponent, VerifyEmailSentComponent, VerifyEmailLinkGenerated, ResetPasswordLinkGeneratedComponent, ResetPasswordEmailSentComponent, ResetPasswordComponent, ResetPasswordConfirmedComponent]
+  declarations: [LoginComponent, RegisterComponent, VerifyEmailConfirmedComponent, VerifyEmailSentComponent, VerifyEmailLinkGenerated, ResetPasswordLinkGeneratedComponent, ResetPasswordEmailSentComponent, ResetPasswordComponent, ResetPasswordConfirmedComponent],
+  imports: [CommonModule, SharedModule, AuthRoutingModule, ReactiveFormsModule]
 })
 export class AuthModule { }
