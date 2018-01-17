@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { JwtHelper } from 'angular2-jwt';
 
-//Redux
+// Redux
 import { NgRedux, select } from '@angular-redux/store';
 import { IAppState } from '../../store';
 import { ADD_TOKEN, REMOVE_TOKEN } from '../../actions';
@@ -54,8 +54,8 @@ export class AuthService {
   logout(): void {
     // clear token remove user from local storage to log user out
     this.token = null;
-    //localStorage.removeItem('token');
-    this.ngRedux.dispatch({ type: REMOVE_TOKEN })
+    // localStorage.removeItem('token');
+    this.ngRedux.dispatch({ type: REMOVE_TOKEN });
   }
 
   isAuthenticated(): boolean {
