@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+//Redux
+import { NgRedux, NgReduxModule } from '@angular-redux/store';
+import { IAppState, rootReducer, INITIAL_STATE } from './store';
 //components
 //Root components
 import { AppComponent } from './app.component';
@@ -26,6 +29,7 @@ import { SharedModule } from './shared/shared.module';
     BrowserModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgReduxModule,
     SharedModule,
     AuthModule,
     AppRoutingModule //Must be the last one to find all feature Modules
@@ -34,4 +38,8 @@ import { SharedModule } from './shared/shared.module';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor (ngRedux: NgRedux<IAppState>){
+    ngRedux.configureStore(rootReducer, INITIAL_STATE);
+  }
+ }

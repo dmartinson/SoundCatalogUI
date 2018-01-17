@@ -2,6 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { JwtHelper } from 'angular2-jwt';
 
+//Redux
+import { NgRedux, select } from '@angular-redux/store';
+import { IAppState } from '../../store';
+import { ADD_TOKEN, REMOVE_TOKEN } from '../../actions';
+
 import { environment } from '../../../environments/environment';
 import { User } from '../models/user';
 import { ResetPassword } from '../models/resetPassword';
@@ -16,6 +21,7 @@ export class AuthService {
   private jwtHelper: JwtHelper;
 
   constructor(
+    private ngRedux: NgRedux<IAppState>,
     private httpClient: HttpClient
   ) {
       this.jwtHelper = new JwtHelper();
@@ -41,14 +47,15 @@ export class AuthService {
   login(email: string, password: string): Promise<AuthData> {
     return this.httpClient.post<AuthData>(environment.soundCatalogApiURL + '/account/login', { email: email, password: password })
       .toPromise()
-      .then(this.returnAndStoreToken)
+      .then(this.returnAndStoreToken.bind(this))
       .catch(this.handleLoginError);
   }
 
   logout(): void {
     // clear token remove user from local storage to log user out
     this.token = null;
-    localStorage.removeItem('token');
+    //localStorage.removeItem('token');
+    this.ngRedux.dispatch({ type: REMOVE_TOKEN })
   }
 
   isAuthenticated(): boolean {
@@ -60,12 +67,13 @@ export class AuthService {
   }
 
   getToken(): string {
-    let authData: AuthData;
+    /*let authData: AuthData;
     if (localStorage.getItem('token') != null) {
       authData = JSON.parse(localStorage.getItem('token'));
       return authData.token;
     }
-    return null;
+    return null;*/
+    return this.ngRedux.getState().token;
   }
 
   generateConfirmEmail(email: string) {
@@ -120,7 +128,8 @@ export class AuthService {
   private returnAndStoreToken(authData: AuthData): AuthData {
     if (authData) {
       // store username and jwt token in local storage to keep user logged in between page refreshes
-      localStorage.setItem('token', JSON.stringify(authData));
+     // localStorage.setItem('token', JSON.stringify(authData));
+      this.ngRedux.dispatch({ type: ADD_TOKEN, token: authData.token});
       return authData;
     } else {
       return null;
