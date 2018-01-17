@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  soundCatalogApiURL: "http://localhost:1171/api"
+  soundCatalogApiURL: 'http://localhost:1171/api'
 };

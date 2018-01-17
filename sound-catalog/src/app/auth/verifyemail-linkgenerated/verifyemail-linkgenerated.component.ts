@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './verifyemail-linkgenerated.component.html',
   styleUrls: ['./verifyemail-linkgenerated.component.css']
 })
-export class VerifyEmailLinkGenerated implements OnInit {
+export class VerifyEmailLinkGenerateComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
@@ -17,7 +17,7 @@ export class VerifyEmailLinkGenerated implements OnInit {
   ngOnInit() {
     const email = this.route.snapshot.paramMap.get('email');
     this.authService.generateConfirmEmail(email)
-      .then(res => { this.router.navigate(['/showemailsent']); })
+      .then(res => { this.router.navigate(['/showemailsent']); });
   }
 
 }

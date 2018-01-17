@@ -35,7 +35,7 @@
             </div>
             <br />
             <div *ngIf="error" class="alert alert-danger" role="alert">
-              <strong>Oops!</strong> {{error}}
+              <strong>Oops!</strong> {{ error }}
               <br />
               <a class ="link-confirmEmail" *ngIf="showLinkConfirmEmail" [routerLink]="['/verifyemail-generatelink', loginForm.controls['email'].value]">Generate new email to confirm your account</a>
             </div>

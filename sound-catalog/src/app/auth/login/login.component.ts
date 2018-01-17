@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   private error: string;
   private returnUrl: string;
   private loginForm: FormGroup;
- 
+
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -39,10 +39,11 @@ export class LoginComponent implements OnInit {
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
 
-    //Form groups
+    // Form groups
     this.loginForm = new FormGroup({
       'email': new FormControl('', {
         updateOn: 'blur',
+        // tslint:disable-next-line:max-line-length
         validators: [Validators.required, patternValidator(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]
       }),
       'password': new FormControl('', {
@@ -51,21 +52,20 @@ export class LoginComponent implements OnInit {
       })
     });
   }
-  
+
   login() {
     this.loading = true;
     this.authService.login(this.loginForm.value.email, this.loginForm.value.password)
       .then(res => {
-        //this.authData = res;
+        // this.authData = res;
         // login successful so redirect to return url
-        if (this.returnUrl === "/") {
+        if (this.returnUrl === '/') {
           this.router.navigate(['home']);
-        }
-        else {
+        } else {
           this.router.navigateByUrl(this.returnUrl);
         }
       })
-      .catch((error : ErrorAuth)  => {
+      .catch((error: ErrorAuth)  => {
         this.loading = false;
         this.error = error.Message;
 
