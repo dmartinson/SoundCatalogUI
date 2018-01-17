@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './verifyemail-linkgenerated.component.html',
   styleUrls: ['./verifyemail-linkgenerated.component.css']
 })
-export class VerifyEmailLinkGenerateComponent implements OnInit {
+export class VerifyEmailLinkGeneratedComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
