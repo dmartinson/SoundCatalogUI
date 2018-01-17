@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 
-//components
+// components
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { VerifyEmailConfirmedComponent } from './verifyemail-confirmed/verifyemail-confirmed.component';
 import { VerifyEmailSentComponent } from './verifyemail-sent/verifyemail-sent.component';
-import { VerifyEmailLinkGenerated } from './verifyemail-linkgenerated/verifyemail-linkgenerated.component';
+import { VerifyEmailLinkGeneratedComponent } from './verifyemail-linkgenerated/verifyemail-linkgenerated.component';
 import { ResetPasswordLinkGeneratedComponent } from './resetpassword-linkgenerated/resetpassword-linkgenerated.component';
 import { ResetPasswordEmailSentComponent } from './resetpassword-emailsent/resetpassword-emailsent.component';
 import { ResetPasswordComponent } from './resetpassword/resetpassword.component';
@@ -18,13 +18,13 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'verifyemail', component: VerifyEmailConfirmedComponent },
   { path: 'verifyemail-showemailsent', component: VerifyEmailSentComponent },
-  { path: 'verifyemail-generatelink/:email', component: VerifyEmailLinkGenerated },
+  { path: 'verifyemail-generatelink/:email', component: VerifyEmailLinkGeneratedComponent },
   { path: 'resetpassword-generatelink', component: ResetPasswordLinkGeneratedComponent },
   { path: 'resetpassword-showemailsent', component: ResetPasswordEmailSentComponent },
   { path: 'resetpassword', component: ResetPasswordComponent },
   { path: 'resetpassword-confirmed', component: ResetPasswordConfirmedComponent }
 
-]
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
@@ -32,4 +32,4 @@ const routes: Routes = [
 })
 export class AuthRoutingModule { }
 
-export const routedComponents = [LoginComponent, RegisterComponent]; 
+export const routedComponents = [LoginComponent, RegisterComponent];

@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
   testauth() {
     this.authService.testMethodAuthorized()
       .then(res => {
-        this.message = 'user is authorized'
+        this.message = 'user is authorized';
       })
       .catch((err: string) => {
         this.error = err;

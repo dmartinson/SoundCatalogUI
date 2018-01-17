@@ -21,11 +21,13 @@ export class ResetPasswordLinkGeneratedComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    //Form groups
+    // Form groups
     this.pwdRecoveryForm = new FormGroup({
       'email': new FormControl('', {
         updateOn: 'blur',
-        validators: [Validators.required, patternValidator(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]
+        validators: [Validators.required,
+          // tslint:disable-next-line:max-line-length
+          patternValidator(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]
       })
     });
   }

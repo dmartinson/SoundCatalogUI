@@ -20,20 +20,20 @@ export class VerifyEmailConfirmedComponent implements OnInit {
   ngOnInit() {
     this.loading = true;
     this.success = false;
-    
+
     this.route.queryParams.subscribe(params => {
       console.log(params);
-      let userId = params['userId'];
-      let code = params['code'];
+      const userId = params['userId'];
+      const code = params['code'];
 
       this.authService.verifyEmail(userId, code)
-        .then(res => { this.success = true; this.loading = false;})
+        .then(res => { this.success = true; this.loading = false; })
         .catch((err: string) => {
           this.error = err;
           this.loading = false;
         });
     });
-    
+
   }
 
 }
