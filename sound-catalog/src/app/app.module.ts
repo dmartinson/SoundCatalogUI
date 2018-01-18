@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 // Redux
 import { NgRedux, NgReduxModule } from '@angular-redux/store';
-import { IAppState, rootReducer, INITIAL_STATE } from './store';
+import { IAppState, rootReducer, INITIAL_STATE } from './state/store';
 // components
 // Root components
 import { AppComponent } from './app.component';

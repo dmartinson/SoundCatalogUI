@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { patternValidator } from '../../shared/validators/pattern.validator';
 import { AuthService } from '../../shared/services/auth.service';
-import { AuthData } from '../../shared/models/authData';
+import { AuthorizedUser } from '../../shared/models/authorizedUser';
 import { ErrorAuth } from '../../shared/models/errorAuth';
 import { ErrorAuthType } from '../../shared/models/errorAuthType';
 

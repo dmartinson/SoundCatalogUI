@@ -1,23 +1,24 @@
-import {ADD_TOKEN, REMOVE_TOKEN} from './actions';
+import {ADD_USER, REMOVE_USER} from './actions';
+import { AuthorizedUser } from '../shared/models/authorizedUser';
 
 export interface IAppState {
-    token: string;
+    user: AuthorizedUser;
 }
 
 export const INITIAL_STATE: IAppState = {
-    token: null
+    user: null
 };
 
 export function rootReducer(state, action) {
     switch (action.type) {
-        case ADD_TOKEN:
+        case ADD_USER:
            // action.token.id = state.token.
            return Object.assign({}, state, {
-               token: action.token
+               user: action.user
            });
-        case REMOVE_TOKEN:
+        case REMOVE_USER:
            return Object.assign({}, state, {
-               token: null
+               user: null
            });
     }
     return state;

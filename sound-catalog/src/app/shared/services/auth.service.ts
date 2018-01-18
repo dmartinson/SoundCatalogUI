@@ -4,13 +4,13 @@ import { JwtHelper } from 'angular2-jwt';
 
 // Redux
 import { NgRedux, select } from '@angular-redux/store';
-import { IAppState } from '../../store';
-import { ADD_TOKEN, REMOVE_TOKEN } from '../../actions';
+import { IAppState } from '../../state/store';
+import { ADD_USER, REMOVE_USER } from '../../state/actions';
 
 import { environment } from '../../../environments/environment';
 import { User } from '../models/user';
 import { ResetPassword } from '../models/resetPassword';
-import { AuthData } from '../models/authData';
+import { AuthorizedUser } from '../models/authorizedUser';
 import { ErrorAuth } from '../models/errorAuth';
 import { ErrorAuthType } from '../models/errorAuthType';
 
@@ -44,8 +44,8 @@ export class AuthService {
       .catch(this.handleError);
   }
 
-  login(email: string, password: string): Promise<AuthData> {
-    return this.httpClient.post<AuthData>(environment.soundCatalogApiURL + '/account/login', { email: email, password: password })
+  login(email: string, password: string): Promise<AuthorizedUser> {
+    return this.httpClient.post<AuthorizedUser>(environment.soundCatalogApiURL + '/account/login', { email: email, password: password })
       .toPromise()
       .then(this.returnAndStoreToken.bind(this))
       .catch(this.handleLoginError);
@@ -55,7 +55,7 @@ export class AuthService {
     // clear token remove user from local storage to log user out
     this.token = null;
     // localStorage.removeItem('token');
-    this.ngRedux.dispatch({ type: REMOVE_TOKEN });
+    this.ngRedux.dispatch({ type: REMOVE_USER });
   }
 
   isAuthenticated(): boolean {
@@ -67,13 +67,11 @@ export class AuthService {
   }
 
   getToken(): string {
-    /*let authData: AuthData;
-    if (localStorage.getItem('token') != null) {
-      authData = JSON.parse(localStorage.getItem('token'));
-      return authData.token;
+    const authUser = this.ngRedux.getState().user;
+    if (authUser !== null) {
+      return authUser.token;
     }
-    return null;*/
-    return this.ngRedux.getState().token;
+    return null;
   }
 
   generateConfirmEmail(email: string) {
@@ -125,12 +123,11 @@ export class AuthService {
       .catch(this.handleError);
   }
 
-  private returnAndStoreToken(authData: AuthData): AuthData {
-    if (authData) {
+  private returnAndStoreToken(authUser: AuthorizedUser): AuthorizedUser {
+    if (authUser) {
       // store username and jwt token in local storage to keep user logged in between page refreshes
-     // localStorage.setItem('token', JSON.stringify(authData));
-      this.ngRedux.dispatch({ type: ADD_TOKEN, token: authData.token});
-      return authData;
+      this.ngRedux.dispatch({ type: ADD_USER, user: authUser});
+      return authUser;
     } else {
       return null;
     }

@@ -3,12 +3,34 @@
     <div class="navbar-header">
       <a class="navbar-brand" href="#">Sound Catalog</a>
     </div>
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Home</a></li>
-      <li><a href="#">Page 1</a></li>
-      <li><a href="#">Page 2</a></li>
-    </ul>
     <ul class="nav navbar-nav navbar-right">
+      <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <span class="glyphicon glyphicon-user"></span> 
+                <strong>{{ firstname }}</strong>
+                <span class="glyphicon glyphicon-chevron-down"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <div class="navbar-login">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <p class="text-center">
+                                    <span class="glyphicon glyphicon-user icon-size"></span>
+                                </p>
+                            </div>
+                            <div class="col-lg-8">
+                                <p class="text-left"><strong>{{ firstname }} {{ lastname }}</strong></p>
+                                <p class="text-left small">{{ username }}</p>
+                                <p class="text-left">
+                                    <a href="#" class="btn btn-primary btn-block btn-sm">Actualizar Datos</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+      </li>
       <li><a [routerLink]="['/']"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
     </ul>
   </div>
