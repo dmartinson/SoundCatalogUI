@@ -1,5 +1,6 @@
 import {ADD_USER, REMOVE_USER} from './actions';
 import { AuthorizedUser } from '../shared/models/authorizedUser';
+import { JwtHelper } from 'angular2-jwt';
 
 export interface IAppState {
     user: AuthorizedUser;
@@ -12,7 +13,6 @@ export const INITIAL_STATE: IAppState = {
 export function rootReducer(state, action) {
     switch (action.type) {
         case ADD_USER:
-           // action.token.id = state.token.
            return Object.assign({}, state, {
                user: action.user
            });

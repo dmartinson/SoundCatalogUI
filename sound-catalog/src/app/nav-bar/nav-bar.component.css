@@ -1,3 +1,7 @@
+ul.dropdown-menu{
+    padding-right: 10px;
+}
+
 .navbar-login
 {
     width: 305px;

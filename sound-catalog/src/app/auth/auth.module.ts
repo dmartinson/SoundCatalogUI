@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
-
-
 // AppModules
 import { SharedModule } from '../shared/shared.module';
 import { AuthRoutingModule } from './auth.routing';

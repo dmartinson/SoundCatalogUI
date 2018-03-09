@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { Http, RequestOptions } from '@angular/http';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
+// import { CommonModule } from '@angular/common';
+// import { RouterModule } from '@angular/router';
 
 import { AuthService } from './services/auth.service';
 import { AuthGuardService } from './services/auth-guard.service';
@@ -25,7 +27,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    }]
+    }],
+  declarations: []
 })
 
 export class SharedModule { }

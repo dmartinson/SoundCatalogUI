@@ -3,4 +3,5 @@ export class AuthorizedUser {
   firstname: string;
   lastname: string;
   token: string;
+  role: string;
 }

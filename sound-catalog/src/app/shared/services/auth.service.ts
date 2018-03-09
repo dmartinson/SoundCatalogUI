@@ -19,10 +19,11 @@ import { ErrorAuthType } from '../models/errorAuthType';
 export class AuthService {
   private token: string | null;
   private jwtHelper: JwtHelper;
+  private roleClaim = 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role';
 
   constructor(
     private ngRedux: NgRedux<IAppState>,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
   ) {
       this.jwtHelper = new JwtHelper();
     }
@@ -125,6 +126,8 @@ export class AuthService {
 
   private returnAndStoreToken(authUser: AuthorizedUser): AuthorizedUser {
     if (authUser) {
+      const token = this.jwtHelper.decodeToken(authUser.token);
+      authUser.role = token[this.roleClaim];
       // store username and jwt token in local storage to keep user logged in between page refreshes
       this.ngRedux.dispatch({ type: ADD_USER, user: authUser});
       return authUser;

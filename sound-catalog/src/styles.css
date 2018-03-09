@@ -1,12 +1,17 @@
 /* You can add global styles to this file, and also import other style files /* default .loading styles, .loading should be invisible, opacity: 0, z-index: -1 */
-body {
+/* body {
   background: url('./images/fleetwoodMac.jpg') no-repeat center center fixed !important;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+} */
+.brand-image{
+  height: 10%;
+  width: 10%;
+  padding-top: 2px;
+  padding-left: 10px;
 }
-
 .loading {
   opacity: 0;
   transition: opacity .8s ease-in-out;

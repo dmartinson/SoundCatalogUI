@@ -11,8 +11,8 @@ import { HomeComponent } from './home/home.component';
 
 
 const routes: Routes = [
-    { path: '', redirectTo: '/login', pathMatch: 'full' },
-    { path: 'home', component: HomeComponent, canActivate: [AuthGuardService] },
+    // { path: '', redirectTo: '/login', pathMatch: 'full' },
+    { path: 'home', component: HomeComponent, canActivate: [AuthGuardService], data: { breadcrumb: 'home' } },
     { path: '**', redirectTo: '' }
 ];
 
